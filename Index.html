@@ -348,7 +348,7 @@
         let originalDocument = '';
         let selectedFiles = [];
         let currentLanguage = localStorage.getItem('language') || 'en';
-        const API_KEY = "AIzaSyCDekDqoQsFAVUpwy87HCyUMKjOc5zw-y0";
+        const API_KEY = "";
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
         const translations = {
             en: { title: "NyaySarthi AI", subtitle: "Your AI legal document assistant.", pastePlaceholder: "Paste your complex legal document here, or select files below.", uploadFile: "Select Files", useCamera: "Use Camera", demystifyBtn: "Demystify Document", initialTitle: "Your simplified summary will appear here.", initialSubtitle: "You can also ask follow-up questions.", summaryTitle: "Document Summary", clausesTitle: "Key Clause Explanations", chatTitle: "Ask a Question", chatPlaceholder: "Ask about specific terms, dates, or obligations...", clear: "Clear", errorPasteDoc: "Please paste a document or select at least one file.", errorFileSupport: "Unsupported file type. Please upload a .txt, .pdf, .png, .jpg or .jpeg file.", errorCameraSupport: "Camera support is not yet implemented. Please select a file.", errorAIGeneric: "I'm sorry, I couldn't process that. Please try again.", noSummary: "No summary could be generated.", noClauses: "No specific clauses were highlighted by the AI.", feature1: "Instant Summaries", feature2: "Complex Clause Explanations", feature3: "Interactive Q&A", security: "Secure & Private: Your documents are processed securely and are never stored on our servers.", errorPDFParse: "Could not read text from the PDF file. It may be an image-only PDF or corrupted.", langInstruction: "Provide the entire response in English.", fileReady: (count) => `${count} file(s) ready for analysis. You can proceed.`, healthTitle: "Contract Health", reExplain: "Re-explain", askWhy: "Ask Why", emailClause: "Email", severityTitle: "Clause Severity", severityHigh: "High", severityMedium: "Medium", severityLow: "Low", nextStepsTitle: "Actionable Next Steps", analysisReport: "Analysis Report", copyReport: "Copy", printReport: "Print", emailReport: "Share", historyTitle: "Analysis History", noHistory: "No history yet. Analyze a document to get started.", clearHistory: "Clear History", clearHistoryConfirm: "Are you sure you want to clear all history?" },
@@ -1052,4 +1052,5 @@
     </script>
 </body>
 </html>
+
 
