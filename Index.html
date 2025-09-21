@@ -76,22 +76,6 @@
         #history-panel.open {
             transform: translateX(0);
         }
-        
-        /* Print styles */
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            #print-area, #print-area * {
-                visibility: visible;
-            }
-            #print-area {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
-        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 antialiased">
@@ -168,16 +152,16 @@
 
     <div class="mesh-gradient"></div>
     <div class="min-h-screen flex flex-col items-center justify-center p-4 relative">
-        <div class="w-full max-w-7xl mx-auto bg-white/60 dark:bg-gray-900/60 backdrop-blur-2xl rounded-2xl shadow-2xl flex flex-col md:flex-row border border-white/30 dark:border-gray-700/50 overflow-hidden md:h-[90vh]">
+        <div class="w-full max-w-7xl mx-auto bg-white/60 dark:bg-gray-900/60 backdrop-blur-2xl rounded-2xl shadow-2xl flex flex-col md:flex-row border border-white/30 dark:border-gray-700/50 overflow-hidden md:h-auto">
             
             <!-- Left Panel: Document Input -->
-            <div class="w-full md:w-1/2 p-4 sm:p-8 flex flex-col border-r border-gray-200/50 dark:border-gray-700/50 overflow-y-auto">
+            <div class="w-full md:w-1/2 p-4 sm:p-8 flex flex-col border-r border-gray-200/50 dark:border-gray-700/50 md:overflow-y-auto">
                 <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4">
                     <div class="flex items-center space-x-3">
                          <button id="history-btn" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600 rounded-lg p-2.5">
                              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                          </button>
-                        <svg class="w-10 h-10 hidden sm:block" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitleMain">
+                        <svg class="w-12 h-12 hidden sm:block" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitleMain">
                             <g transform="translate(0, -5)">
                                 <g>
                                     <path d="M 100,20 A 60 60 0 1 1 40,100" fill="none" stroke="#0d3d56" stroke-width="6" stroke-linecap="round"/>
@@ -220,6 +204,7 @@
                             <option value="bn">বাংলা</option>
                             <option value="mr">मराठी</option>
                             <option value="ta">தமிழ்</option>
+                            <option value="ml">മലയാളം</option>
                         </select>
                         <button id="theme-toggle" type="button" class="relative text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600 rounded-lg text-sm p-2.5 w-10 h-10 flex items-center justify-center transition-colors">
                             <svg class="sun w-6 h-6 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M12 12a5 5 0 100-10 5 5 0 000 10z"></path></svg>
@@ -241,9 +226,16 @@
                     <textarea id="documentInput" class="w-full h-full p-4 border border-gray-300/50 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow duration-300 text-sm bg-white/50 dark:bg-gray-800/50 dark:border-gray-700/50 dark:placeholder-gray-400 dark:text-white" data-lang-placeholder="pastePlaceholder"></textarea>
                 </div>
                 <div class="flex items-center justify-center space-x-6 mt-4">
-                    <label for="fileInput" class="cursor-pointer flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg><span data-lang-key="uploadFile">Select Files</span></label>
+                     <label for="fileInput" class="cursor-pointer flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        <span data-lang-key="uploadFile">Upload File(s)</span>
+                    </label>
                     <input type="file" id="fileInput" class="hidden" accept=".txt,.pdf,.png,.jpg,.jpeg" multiple>
-                    <button id="cameraBtn" class="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg><span data-lang-key="useCamera">Use Camera</span></button>
+                    <button id="cameraBtn" class="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <span data-lang-key="useCamera">Use Camera</span>
+                    </button>
+                    <input type="file" id="cameraInput" class="hidden" accept="image/*" capture="environment">
                 </div>
                  <div id="fileListContainer" class="mt-4 space-y-2"></div>
                  <p id="fileStatus" class="mt-2 text-sm text-center text-gray-600 dark:text-gray-400"></p>
@@ -264,7 +256,7 @@
                     </div>
                     <div id="loadingState" class="hidden"><div class="space-y-6"><div class="skeleton-loader bg-gray-200 dark:bg-gray-800 h-8 w-1/3 rounded-lg"></div><div class="skeleton-loader bg-gray-200 dark:bg-gray-800 h-20 w-full rounded-lg"></div><div class="skeleton-loader bg-gray-200 dark:bg-gray-800 h-8 w-1/2 rounded-lg"></div><div class="skeleton-loader bg-gray-200 dark:bg-gray-800 h-16 w-full rounded-lg"></div><div class="skeleton-loader bg-gray-200 dark:bg-gray-800 h-16 w-full rounded-lg"></div></div></div>
                     <div id="resultState" class="hidden flex flex-col space-y-6 pr-4">
-                        <div class="flex justify-between items-start">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-start gap-4">
                              <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white" data-lang-key="analysisReport">Analysis Report</h2>
                              <div id="export-buttons" class="flex items-center space-x-2"></div>
                         </div>
@@ -324,6 +316,7 @@
         const themeToggleBtn = document.getElementById('theme-toggle');
         const languageSelector = document.getElementById('languageSelector');
         const fileInput = document.getElementById('fileInput');
+        const cameraInput = document.getElementById('cameraInput');
         const cameraBtn = document.getElementById('cameraBtn');
         const clearBtn = document.getElementById('clearBtn');
         const fileListContainer = document.getElementById('fileListContainer');
@@ -348,14 +341,16 @@
         let originalDocument = '';
         let selectedFiles = [];
         let currentLanguage = localStorage.getItem('language') || 'en';
+        
         const API_KEY = "";
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
         const translations = {
-            en: { title: "NyaySarthi AI", subtitle: "Your AI legal document assistant.", pastePlaceholder: "Paste your complex legal document here, or select files below.", uploadFile: "Select Files", useCamera: "Use Camera", demystifyBtn: "Demystify Document", initialTitle: "Your simplified summary will appear here.", initialSubtitle: "You can also ask follow-up questions.", summaryTitle: "Document Summary", clausesTitle: "Key Clause Explanations", chatTitle: "Ask a Question", chatPlaceholder: "Ask about specific terms, dates, or obligations...", clear: "Clear", errorPasteDoc: "Please paste a document or select at least one file.", errorFileSupport: "Unsupported file type. Please upload a .txt, .pdf, .png, .jpg or .jpeg file.", errorCameraSupport: "Camera support is not yet implemented. Please select a file.", errorAIGeneric: "I'm sorry, I couldn't process that. Please try again.", noSummary: "No summary could be generated.", noClauses: "No specific clauses were highlighted by the AI.", feature1: "Instant Summaries", feature2: "Complex Clause Explanations", feature3: "Interactive Q&A", security: "Secure & Private: Your documents are processed securely and are never stored on our servers.", errorPDFParse: "Could not read text from the PDF file. It may be an image-only PDF or corrupted.", langInstruction: "Provide the entire response in English.", fileReady: (count) => `${count} file(s) ready for analysis. You can proceed.`, healthTitle: "Contract Health", reExplain: "Re-explain", askWhy: "Ask Why", emailClause: "Email", severityTitle: "Clause Severity", severityHigh: "High", severityMedium: "Medium", severityLow: "Low", nextStepsTitle: "Actionable Next Steps", analysisReport: "Analysis Report", copyReport: "Copy", printReport: "Print", emailReport: "Share", historyTitle: "Analysis History", noHistory: "No history yet. Analyze a document to get started.", clearHistory: "Clear History", clearHistoryConfirm: "Are you sure you want to clear all history?" },
-            hi: { title: "न्यायसारथी एआई", subtitle: "आपका एआई कानूनी दस्तावेज़ सहायक।", pastePlaceholder: "अपना जटिल कानूनी दस्तावेज़ यहाँ पेस्ट करें, या नीचे फ़ाइलें चुनें।", uploadFile: "फ़ाइलें चुनें", useCamera: "कैमरे का प्रयोग करें", demystifyBtn: "दस्तावेज़ को सरल बनाएं", initialTitle: "आपका सरलीकृत सारांश यहाँ दिखाई देगा।", initialSubtitle: "आप अतिरिक्त प्रश्न भी पूछ सकेंगे।", summaryTitle: "दस्तावेज़ सारांश", clausesTitle: "मुख्य धारा स्पष्टीकरण", chatTitle: "एक प्रश्न पूछें", chatPlaceholder: "विशिष्ट शब्दों, तिथियों या दायित्वों के बारे में पूछें...", clear: "साफ़ करें", errorPasteDoc: "कृपया एक दस्तावेज़ पेस्ट करें या कम से कम एक फ़ाइल चुनें।", errorFileSupport: "असमर्थित फ़ाइल प्रकार। कृपया .txt, .pdf, .png, .jpg या .jpeg फ़ाइल अपलोड करें।", errorCameraSupport: "कैमरा समर्थन अभी तक लागू नहीं किया गया है। कृपया एक फ़ाइल चुनें।", errorAIGeneric: "मुझे क्षमा करें, मैं उसे संसाधित नहीं कर सका। कृपया पुनः प्रयास करें।", noSummary: "कोई सारांश उत्पन्न नहीं किया जा सका।", noClauses: "एआई द्वारा कोई विशिष्ट धारा हाइलाइट नहीं किया गया था।", feature1: "तुरंत सारांश", feature2: "जटिल धारा स्पष्टीकरण", feature3: "इंटरैक्टिव प्रश्नोत्तर", security: "सुरक्षित और निजी: आपके दस्तावेज़ कभी संग्रहीत नहीं किए जाते हैं।", errorPDFParse: "PDF फ़ाइल से टेक्स्ट नहीं पढ़ा जा सका। यह केवल-छवि PDF या दूषित हो सकती है।", langInstruction: "Provide the entire response in Hindi.", fileReady: (count) => `विश्लेषण के लिए ${count} फ़ाइल(लें) तैयार हैं। आप आगे बढ़ सकते हैं।`, healthTitle: "अनुबंध स्वास्थ्य", reExplain: "पुनः समझाएं", askWhy: "क्यों पूछें", emailClause: "ईमेल करें", severityTitle: "धारा की गंभीरता", severityHigh: "उच्च", severityMedium: "मध्यम", severityLow: "कम", nextStepsTitle: "अगले कदम", analysisReport: "विश्लेषण रिपोर्ट", copyReport: "कॉपी", printReport: "प्रिंट", emailReport: "शेयर", historyTitle: "विश्लेषण इतिहास", noHistory: "अभी तक कोई इतिहास नहीं है। आरंभ करने के लिए एक दस्तावेज़ का विश्लेषण करें।", clearHistory: "इतिहास साफ़ करें", clearHistoryConfirm: "क्या आप वाकई सारा इतिहास साफ़ करना चाहते हैं?" },
-            bn: { title: " ন্যায়সারথি এআই", subtitle: "আপনার এআই আইনি নথি सहायक।", pastePlaceholder: "আপনার জটিল আইনি নথি এখানে পেস্ট করুন, অথবা নীচে ফাইল নির্বাচন করুন।", uploadFile: "ফাইল নির্বাচন করুন", useCamera: "ক্যামেরা ব্যবহার করুন", demystifyBtn: "নথিটি ডেমিস্টিফাই করুন", initialTitle: "আপনার সরলীকৃত সারসংক্ষেপ এখানে উপস্থিত হবে।", initialSubtitle: "আপনি ফলো-আপ প্রশ্নও করতে পারেন।", summaryTitle: "নথির সারসংক্ষেপ", clausesTitle: "মূল ধারার ব্যাখ্যা", chatTitle: "একটি প্রশ্ন জিজ্ঞাসা করুন", chatPlaceholder: "নির্দিষ্ট শর্তাবলী, তারিখ বা বাধ্যবাধকতা সম্পর্কে জিজ্ঞাসা করুন...", clear: "পরিষ্কার করুন", errorPasteDoc: "অনুগ্রহ করে একটি নথি পেস্ট করুন বা অন্তত একটি ফাইল নির্বাচন করুন।", errorFileSupport: "অসমর্থিত ফাইলের ধরন। অনুগ্রহ করে .txt, .pdf, .png, .jpg বা .jpeg ফাইল আপলোড করুন।", errorCameraSupport: "ক্যামেরা সমর্থন এখনও প্রয়োগ করা হয়নি। অনুগ্রহ করে একটি ফাইল নির্বাচন করুন।", errorAIGeneric: "আমি দুঃখিত, আমি এটি প্রক্রিয়া করতে পারিনি। অনুগ্রহ করে আবার চেষ্টা করুন।", noSummary: "কোনো সারসংক্ষেপ তৈরি করা যায়নি।", noClauses: "এআই দ্বারা কোনো নির্দিষ্ট ধারা হাইলাইট করা হয়নি।", feature1: "তাত্ক্ষণিক সারসংক্ষেপ", feature2: "জটিল ধারার ব্যাখ্যা", feature3: "ইন্টারেক্টিভ প্রশ্নোত্তর", security: "সুরক্ষিত এবং ব্যক্তিগত: আপনার নথিগুলি সুরক্ষিতভাবে প্রক্রিয়া করা হয় এবং আমাদের সার্ভারে কখনও সংরক্ষণ করা হয় না।", errorPDFParse: "পিডিএফ ফাইল থেকে পাঠ্য পড়া যায়নি। এটি কেবল-ছবি পিডিএফ বা দূষিত হতে পারে।", langInstruction: "Provide the entire response in Bengali.", fileReady: (count) => `বিশ্লেষণের জন্য ${count}টি ফাইল প্রস্তুত। আপনি এগিয়ে যেতে পারেন।`, healthTitle: "চুক্তি স্বাস্থ্য", reExplain: "পুনরায় ব্যাখ্যা করুন", askWhy: "কেন জিজ্ঞাসা করুন", emailClause: "ইমেল করুন", severityTitle: "ধারার তীব্রতা", severityHigh: "উচ্চ", severityMedium: "মাঝারি", severityLow: "নিম্ন", nextStepsTitle: "পরবর্তী পদক্ষেপ", analysisReport: "বিশ্লেষণ প্রতিবেদন", copyReport: "অনুলিপি", printReport: "মুদ্রণ", emailReport: "শেয়ার", historyTitle: "বিশ্লেষণ ইতিহাস", noHistory: "এখনও কোন ইতিহাস নেই। শুরু করতে একটি নথি বিশ্লেষণ করুন।", clearHistory: "ইতিহাস পরিষ্কার করুন", clearHistoryConfirm: "আপনি কি নিশ্চিত যে আপনি সমস্ত ইতিহাস পরিষ্কার করতে চান?" },
-            mr: { title: "न्यायसारथी एआय", subtitle: "तुमचा एआय कायदेशीर ਦਸਤਾਵੇਜ सहाय्यक।", pastePlaceholder: "तुमचा गुंतागुंतीचा कायदेशीर दस्तऐवज येथे पेस्ट करा, किंवा खालील ফাইল निवडा.", uploadFile: "फाईल निवडा", useCamera: "कॅमेरा वापरा", demystifyBtn: "दस्तऐवज डिमिस्टिफाय करा", initialTitle: "तुमचा सोपा सारांश येथे दिसेल.", initialSubtitle: "तुम्ही ফলো-अप प्रश्न देखील विचारू शकता.", summaryTitle: "दस्तऐवज सारांश", clausesTitle: "मुख्य कलमांचे स्पष्टीकरण", chatTitle: "प्रश्न विचारा", chatPlaceholder: "विशिष्ट अटी, तारखा किंवा जबाबदाऱ्यांबद्दल विचारा...", clear: "साफ करा", errorPasteDoc: "कृपया एक दस्तऐवज पेस्ट करा किंवा किमान এক फाईल निवडा।", errorFileSupport: "असमर्थित फाइल प्रकार. कृपया .txt, .pdf, .png, .jpg বা .jpeg फाइल अपलोड करा.", errorCameraSupport: "कॅमेरा समर्थन अद्याप लागू केलेले नाही. कृपया एक फाइल निवडा.", errorAIGeneric: "मला माफ करा, मी ते प्रक्रिया करू शकलो नाही. कृपया पुन्हा प्रयत्न करा.", noSummary: "कोणताही सारांश तयार होऊ शकला नाही.", noClauses: "एआयद्वारे कोणतीही विशिष्ट कलमे हायलाइट केली गेली नाहीत.", feature1: "झटपट सारांश", feature2: "गुंतागुंतीच्या कलमांचे स्पष्टीकरण", feature3: "परस्परसंवादी প্রশ্নोत्तर", security: "सुरक्षित आणि खाजगी: तुमचे दस्तऐवज सुरक्षितपणे प्रक्रिया केले जातात आणि आमच्या सर्व्हरवर कधीही संग्रहित केले जात नाहीत.", errorPDFParse: "पीडीएफ फाइलमधून मजकुर वाचता आला नाही. ती फक्त-प्रतिमा पीडीएफ किंवा दूषित असू शकते.", langInstruction: "Provide the entire response in Marathi.", fileReady: (count) => `विश्लेषणासाठी ${count} फाइल(ली) तयार आहे. तुम्ही पुढे जाऊ शकता.`, healthTitle: "करार आरोग्य", reExplain: "पुन्हा स्पष्ट करा", askWhy: "का विचारा", emailClause: "ईमेल करा", severityTitle: "कलमाची तीव्रता", severityHigh: "उच्च", severityMedium: "मध्यम", severityLow: "कमी", nextStepsTitle: "पुढील चरण", analysisReport: "विश्लेषण अहवाल", copyReport: "कॉपी", printReport: "प्रिंट", emailReport: "शेअर", historyTitle: "विश्लेषण ইতিহাস", noHistory: "अद्याप कोणताही ইতিহাস नाही. प्रारंभ करण्यासाठी दस्तऐवज विश्लेषण करा.", clearHistory: "इतिहास साफ करा", clearHistoryConfirm: "तुम्ही सर्व इतिहास साफ करू इच्छिता याची खात्री आहे का?" },
-            ta: { title: "நியாயசாரதி ஏஐ", subtitle: "உங்கள் செயற்கை நுண்ணறிவு சட்ட ஆவண உதவியாளர்.", pastePlaceholder: "உங்கள் சிக்கலான சட்ட ஆவணத்தை இங்கே ஒட்டவும், அல்லது கீழே கோப்புகளைத் தேர்ந்தெடுக்கவும்.", uploadFile: "கோப்புகளைத் தேர்ந்தெடுக்கவும்", useCamera: "கேமராவைப் பயன்படுத்தவும்", demystifyBtn: "ஆவணத்தை டிமிஸ்டிஃபை செய்யவும்", initialTitle: "உங்கள் எளிமைப்படுத்தப்பட்ட சுருக்கம் இங்கே தோன்றும்.", initialSubtitle: "நீங்கள் பின்தொடர் கேள்விகளையும் கேட்கலாம்.", summaryTitle: "ஆவணச் சுருக்கம்", clausesTitle: "முக்கிய உட்பிரிவுகளின் விளக்கங்கள்", chatTitle: "ஒரு கேள்வியைக் கேளுங்கள்", chatPlaceholder: "குறிப்பிட்ட விதிமுறைகள், தேதிகள் அல்லது கடமைகள் பற்றி கேளுங்கள்...", clear: "அழி", errorPasteDoc: "தயவுசெய்து ஒரு ஆவணத்தை ஒட்டவும் அல்லது குறைந்தபட்சம் ஒரு கோப்பைத் தேர்ந்தெடுக்கவும்.", errorFileSupport: "ஆதரிக்கப்படாத கோப்பு வகை. தயவுசெய்து .txt, .pdf, .png, .jpg அல்லது .jpeg கோப்பைப் பதிவேற்றவும்.", errorCameraSupport: "கேமரா ஆதரவு இன்னும் செயல்படுத்தப்படவில்லை. தயவுசெய்து ஒரு கோப்பைத் தேர்ந்தெடுக்கவும்.", errorAIGeneric: "மன்னிக்கவும், என்னால் அதைச் செயல்படுத்த முடியவில்லை. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.", noSummary: "சுருக்கம் எதுவும் உருவாக்க முடியவில்லை.", noClauses: "செயற்கை நுண்ணறிவால் குறிப்பிட்ட உட்பிரிவுகள் எதுவும் முன்னிலைப்படுத்தப்படவில்லை.", feature1: "உடனடி சுருக்கங்கள்", feature2: "சிக்கலான உட்பிரிவு விளக்கங்கள்", feature3: "ஊடாடும் கேள்வி பதில்", security: "பாதுகாப்பானது மற்றும் riêng tư: உங்கள் ஆவணங்கள் பாதுகாப்பாக செயலாக்கப்படுகின்றன மற்றும் எங்கள் சேவையகங்களில் ஒருபோதும் சேமிக்கப்படுவதில்லை.", errorPDFParse: "PDF கோப்பிலிருந்து உரையைப் படிக்க முடியவில்லை. இது படம் മാത്രമുള്ള PDF ஆகவோ அல்லது சிதைந்ததாகவோ இருக்கலாம்.", langInstruction: "Provide the entire response in Tamil.", fileReady: (count) => `பகுப்பாய்விற்கு ${count} கோப்பு(கள்) தயாராக உள்ளது. நீங்கள் தொடரலாம்.`, healthTitle: "ஒப்பந்த ఆరోగ్యం", reExplain: "மீண்டும் விளக்கவும்", askWhy: "ஏன் என்று கேளுங்கள்", emailClause: "மின்னஞ்சல்", severityTitle: " உட்பிரிவு தீவிரம்", severityHigh: "உயர்", severityMedium: "நடுத்தர", severityLow: "குறைந்த", nextStepsTitle: "அடுத்த படிகள்", analysisReport: "பகுப்பாய்வு அறிக்கை", copyReport: "நகலெடு", printReport: "அச்சிடு", emailReport: "பகிர்", historyTitle: "பகுப்பாய்வு வரலாறு", noHistory: "இன்னும் வரலாறு இல்லை. தொடங்க ஒரு ஆவணத்தை பகுப்பாய்வு செய்யவும்.", clearHistory: "வரலாற்றை ತೆರವುಗೊಳಿಸಿ", clearHistoryConfirm: "நீங்கள் எல்லா வரலாற்றையும் ತೆರವುಗೊಳಿಸಲು ಖಚಿತವಾಗಿ ಬಯಸುತ್ತೀರಾ?" }
+            en: { title: "NyaySarthi AI", subtitle: "Your AI legal document assistant.", pastePlaceholder: "Paste your complex legal document here, or select files below.", uploadFile: "Upload File(s)", useCamera: "Use Camera", demystifyBtn: "Demystify Document", initialTitle: "Your simplified summary will appear here.", initialSubtitle: "You can also ask follow-up questions.", summaryTitle: "Document Summary", clausesTitle: "Key Clause Explanations", chatTitle: "Ask a Question", chatPlaceholder: "Ask about specific terms, dates, or obligations...", clear: "Clear", errorPasteDoc: "Please paste a document or select at least one file.", errorFileSupport: "Unsupported file type. Please upload a .txt, .pdf, .png, .jpg or .jpeg file.", errorCameraSupport: "Camera support is not yet implemented. Please select a file.", errorAIGeneric: "I'm sorry, I couldn't process that. Please try again.", noSummary: "No summary could be generated.", noClauses: "No specific clauses were highlighted by the AI.", feature1: "Instant Summaries", feature2: "Complex Clause Explanations", feature3: "Interactive Q&A", security: "Secure & Private: Your documents are processed securely and are never stored on our servers.", errorPDFParse: "Could not read text from the PDF file. It may be an image-only PDF or corrupted.", langInstruction: "Provide the entire response in English.", fileReady: (count) => `${count} file(s) ready for analysis. You can proceed.`, healthTitle: "Contract Health", reExplain: "Re-explain", askWhy: "Ask Why", emailClause: "Email", severityTitle: "Clause Severity", severityHigh: "High", severityMedium: "Medium", severityLow: "Low", nextStepsTitle: "Actionable Next Steps", analysisReport: "Analysis Report", copyReport: "Copy", emailReport: "Share", historyTitle: "Analysis History", noHistory: "No history yet. Analyze a document to get started.", clearHistory: "Clear History", clearHistoryConfirm: "Are you sure you want to clear all history?" },
+            hi: { title: "न्यायसारथी एआई", subtitle: "आपका एआई कानूनी दस्तावेज़ सहायक।", pastePlaceholder: "अपना जटिल कानूनी दस्तावेज़ यहाँ पेस्ट करें, या नीचे फ़ाइलें चुनें।", uploadFile: "फ़ाइलें अपलोड करें", useCamera: "कैमरे का प्रयोग करें", demystifyBtn: "दस्तावेज़ को सरल बनाएं", initialTitle: "आपका सरलीकृत सारांश यहाँ दिखाई देगा।", initialSubtitle: "आप अतिरिक्त प्रश्न भी पूछ सकेंगे।", summaryTitle: "दस्तावेज़ सारांश", clausesTitle: "मुख्य धारा स्पष्टीकरण", chatTitle: "एक प्रश्न पूछें", chatPlaceholder: "विशिष्ट शब्दों, तिथियों या दायित्वों के बारे में पूछें...", clear: "साफ़ करें", errorPasteDoc: "कृपया एक दस्तावेज़ पेस्ट करें या कम से कम एक फ़ाइल चुनें।", errorFileSupport: "असमर्थित फ़ाइल प्रकार। कृपया .txt, .pdf, .png, .jpg या .jpeg फ़ाइल अपलोड करें।", errorCameraSupport: "कैमरा समर्थन अभी तक लागू नहीं किया गया है। कृपया एक फ़ाइल चुनें।", errorAIGeneric: "मुझे क्षमा करें, मैं उसे संसाधित नहीं कर सका। कृपया पुनः प्रयास करें।", noSummary: "कोई सारांश उत्पन्न नहीं किया जा सका।", noClauses: "एआई द्वारा कोई विशिष्ट धारा हाइलाइट नहीं किया गया था।", feature1: "तुरंत सारांश", feature2: "जटिल धारा स्पष्टीकरण", feature3: "इंटरैक्टिव प्रश्नोत्तर", security: "सुरक्षित और निजी: आपके दस्तावेज़ कभी संग्रहीत नहीं किए जाते हैं।", errorPDFParse: "PDF फ़ाइल से टेक्स्ट नहीं पढ़ा जा सका। यह केवल-छवि PDF या दूषित हो सकती है।", langInstruction: "Provide the entire response in Hindi.", fileReady: (count) => `विश्लेषण के लिए ${count} फ़ाइल(लें) तैयार हैं। आप आगे बढ़ सकते हैं।`, healthTitle: "अनुबंध स्वास्थ्य", reExplain: "पुनः समझाएं", askWhy: "क्यों पूछें", emailClause: "ईमेल करें", severityTitle: "धारा की गंभीरता", severityHigh: "उच्च", severityMedium: "मध्यम", severityLow: "कम", nextStepsTitle: "अगले कदम", analysisReport: "विश्लेषण रिपोर्ट", copyReport: "कॉपी", emailReport: "शेयर", historyTitle: "विश्लेषण इतिहास", noHistory: "अभी तक कोई इतिहास नहीं है। आरंभ करने के लिए एक दस्तावेज़ का विश्लेषण करें।", clearHistory: "इतिहास साफ़ करें", clearHistoryConfirm: "क्या आप वाकई सारा इतिहास साफ़ करना चाहते हैं?" },
+            bn: { title: " ন্যায়সারথি এআই", subtitle: "আপনার এআই আইনি নথি सहायक।", pastePlaceholder: "আপনার জটিল আইনি নথি এখানে পেস্ট করুন, অথবা নীচে ফাইল নির্বাচন করুন।", uploadFile: "ফাইল আপলোড করুন", useCamera: "ক্যামেরা ব্যবহার করুন", demystifyBtn: "নথিটি ডেমিস্টিফাই করুন", initialTitle: "আপনার সরলীকৃত সারসংক্ষেপ এখানে উপস্থিত হবে।", initialSubtitle: "আপনি ফলো-আপ প্রশ্নও করতে পারেন।", summaryTitle: "নথির সারসংক্ষেপ", clausesTitle: "মূল ধারার ব্যাখ্যা", chatTitle: "একটি প্রশ্ন জিজ্ঞাসা করুন", chatPlaceholder: " নির্দিষ্ট শর্তাবলী, তারিখ বা বাধ্যবাধকতা সম্পর্কে জিজ্ঞাসা করুন...", clear: "পরিষ্কার করুন", errorPasteDoc: "অনুগ্রহ করে একটি নথি পেস্ট করুন বা অন্তত একটি ফাইল নির্বাচন করুন।", errorFileSupport: "অসমর্থিত ফাইলের ধরন। অনুগ্রহ করে .txt, .pdf, .png, .jpg বা .jpeg ফাইল আপলোড করুন।", errorCameraSupport: "ক্যামেরা সমর্থন এখনও প্রয়োগ করা হয়নি। অনুগ্রহ করে একটি ফাইল নির্বাচন করুন।", errorAIGeneric: "আমি দুঃখিত, আমি এটি প্রক্রিয়া করতে পারিনি। অনুগ্রহ করে আবার চেষ্টা করুন।", noSummary: "কোনো সারসংক্ষেপ তৈরি করা যায়নি।", noClauses: "এআই দ্বারা কোনো নির্দিষ্ট ধারা হাইলাইট করা হয়নি।", feature1: "তাত্ক্ষণিক সারসংক্ষেপ", feature2: "জটিল ধারার ব্যাখ্যা", feature3: "ইন্টারেক্টিভ প্রশ্নোত্তর", security: "সুরক্ষিত এবং ব্যক্তিগত: আপনার নথিগুলি সুরক্ষিতভাবে প্রক্রিয়া করা হয় এবং আমাদের সার্ভারে কখনও সংরক্ষণ করা হয় না।", errorPDFParse: "পিডিএফ ফাইল থেকে পাঠ্য পড়া যায়নি। এটি কেবল-ছবি পিডিএফ বা দূষিত হতে পারে।", langInstruction: "Provide the entire response in Bengali.", fileReady: (count) => `বিশ্লেষণের জন্য ${count}টি ফাইল প্রস্তুত। আপনি এগিয়ে যেতে পারেন।`, healthTitle: "চুক্তি স্বাস্থ্য", reExplain: "পুনরায় ব্যাখ্যা করুন", askWhy: "কেন জিজ্ঞাসা করুন", emailClause: "ইমেল করুন", severityTitle: "ধারার তীব্রতা", severityHigh: "উচ্চ", severityMedium: "মাঝারি", severityLow: "নিম্ন", nextStepsTitle: "পরবর্তী পদক্ষেপ", analysisReport: "বিশ্লেষণ প্রতিবেদন", copyReport: "অনুলিপি", emailReport: "শেয়ার", historyTitle: "বিশ্লেষণ ইতিহাস", noHistory: "এখনও কোন ইতিহাস নেই। শুরু করতে একটি নথি বিশ্লেষণ করুন।", clearHistory: "ইতিহাস পরিষ্কার করুন", clearHistoryConfirm: "আপনি কি নিশ্চিত যে আপনি সমস্ত ইতিহাস পরিষ্কার করতে চান?" },
+            mr: { title: "न्यायसारथी एआय", subtitle: "तुमचा एआय कायदेशीर ਦਸਤਾਵੇਜ सहाय्यक।", pastePlaceholder: "तुमचा गुंतागुंतीचा कायदेशीर दस्तऐवज येथे पेस्ट करा, किंवा खालील फाइल निवडा.", uploadFile: "दस्तऐवज अपलोड करा", useCamera: "कॅमेरा वापरा", demystifyBtn: "दस्तऐवज डिमिस्टिफाय करा", initialTitle: "तुमचा सोपा सारांश येथे दिसेल.", initialSubtitle: "तुम्ही ফলো-अप প্রশ্ন देखील विचारू शकता.", summaryTitle: "दस्तऐवज सारांश", clausesTitle: "मुख्य कलमांचे स्पष्टीकरण", chatTitle: "प्रश्न विचारा", chatPlaceholder: "विशिष्ट अटी, तारखा किंवा जबाबदाऱ्यांबद्दल विचारा...", clear: "साफ करा", errorPasteDoc: "कृपया এক দস্তऐवज पेस्ट करा किंवा किमान এক फाईल निवडा।", errorFileSupport: "असमर्थित फाइल प्रकार. कृपया .txt, .pdf, .png, .jpg বা .jpeg फाइल अपलोड करा.", errorCameraSupport: "कॅमेरा समर्थन अद्याप लागू केलेले नाही. कृपया एक फाइल निवडा.", errorAIGeneric: "मला माफ करा, मी ते प्रक्रिया करू शकलो नाही. कृपया पुन्हा प्रयत्न करा.", noSummary: "कोणताही सारांश तयार होऊ शकला नाही.", noClauses: "एआयद्वारे कोणतीही विशिष्ट कलमे हायलाइट केली गेली नाहीत।", feature1: "झटपट सारांश", feature2: "गुंतागुंतीच्या कलमांचे स्पष्टीकरण", feature3: "परस्परसंवादी প্রশ্নोत्तर", security: "सुरक्षित आणि खाजगी: तुमचे दस्तऐवज सुरक्षितपणे प्रक्रिया केले जातात आणि आमच्या सर्व्हरवर कधीही संग्रहित केले जात नाहीत.", errorPDFParse: "पीडीएफ फाइलमधून मजकुर वाचता आला नाही. ती फक्त-प्रतिमा पीडीएफ किंवा दूषित असू शकते.", langInstruction: "Provide the entire response in Marathi.", fileReady: (count) => `विश्लेषणासाठी ${count} फाइल(ली) तयार आहे. तुम्ही पुढे जाऊ शकता.`, healthTitle: "करार आरोग्य", reExplain: "पुन्हा स्पष्ट करा", askWhy: "का विचारा", emailClause: "ईमेल करा", severityTitle: "कलमाची तीव्रता", severityHigh: "उच्च", severityMedium: "मध्यम", severityLow: "कमी", nextStepsTitle: "पुढील चरण", analysisReport: "विश्लेषण अहवाल", copyReport: "कॉपी", emailReport: "शेअर", historyTitle: "विश्लेषण ইতিহাস", noHistory: "अद्याप कोणताही ইতিহাস नाही. प्रारंभ करण्यासाठी दस्तऐवज বিশ্লেষণ करा.", clearHistory: "इतिहास साफ करा", clearHistoryConfirm: "तुम्ही सर्व ইতিহাস साफ करू इच्छिता याची खात्री आहे का?" },
+            ta: { title: "நியாயசாரதி ஏஐ", subtitle: "உங்கள் செயற்கை நுண்ணறிவு சட்ட ஆவண உதவியாளர்.", pastePlaceholder: "உங்கள் சிக்கலான சட்ட ஆவணத்தை இங்கே ஒட்டவும், அல்லது கீழே கோப்புகளைத் தேர்ந்தெடுக்கவும்.", uploadFile: "ஆவணத்தைப் பதிவேற்றுக", useCamera: "கேமராவைப் பயன்படுத்தவும்", demystifyBtn: "ஆவணத்தை டிமிஸ்டிஃபை செய்யவும்", initialTitle: "உங்கள் எளிமைப்படுத்தப்பட்ட சுருக்கம் இங்கே தோன்றும்.", initialSubtitle: "நீங்கள் பின்தொடர் கேள்விகளையும் கேட்கலாம்.", summaryTitle: "ஆவணச் சுருக்கம்", clausesTitle: "முக்கிய உட்பிரிவுகளின் விளக்கங்கள்", chatTitle: "ஒரு கேள்வியைக் கேளுங்கள்", chatPlaceholder: "குறிப்பிட்ட விதிமுறைகள், தேதிகள் அல்லது கடமைகள் பற்றி கேளுங்கள்...", clear: "அழி", errorPasteDoc: "தயவுசெய்து ஒரு ஆவணத்தை ஒட்டவும் அல்லது குறைந்தபட்சம் ஒரு கோப்பைத் தேர்ந்தெடுக்கவும்.", errorFileSupport: "ஆதரிக்கப்படாத கோப்பு வகை. தயவுசெய்து .txt, .pdf, .png, .jpg அல்லது .jpeg கோப்பைப் பதிவேற்றவும்.", errorCameraSupport: "கேமரா ஆதரவு இன்னும் செயல்படுத்தப்படவில்லை. தயவுசெய்து ஒரு கோப்பைத் தேர்ந்தெடுக்கவும்.", errorAIGeneric: "மன்னிக்கவும், என்னால் அதைச் செயல்படுத்த முடியவில்லை. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.", noSummary: "சுருக்கம் எதுவும் உருவாக்க முடியவில்லை.", noClauses: "செயற்கை நுண்ணறிவால் குறிப்பிட்ட உட்பிரிவுகள் எதுவும் முன்னிலைப்படுத்தப்படவில்லை.", feature1: "உடனடி சுருக்கங்கள்", feature2: "சிக்கலான உட்பிரிவு விளக்கங்கள்", feature3: "ஊடாடும் கேள்வி பதில்", security: "பாதுகாப்பானது மற்றும் riêng tư: உங்கள் ஆவணங்கள் பாதுகாப்பாக செயலாக்கப்படுகின்றன மற்றும் எங்கள் சேவையகங்களில் ஒருபோதும் சேமிக்கப்படுவதில்லை.", errorPDFParse: "PDF கோப்பிலிருந்து உரையைப் படிக்க முடியவில்லை. இது படம் മാത്രമുള്ള PDF ஆகவோ அல்லது சிதைந்ததாகவோ இருக்கலாம்.", langInstruction: "Provide the entire response in Tamil.", fileReady: (count) => `பகுப்பாய்விற்கு ${count} கோப்பு(கள்) தயாராக உள்ளது. நீங்கள் தொடரலாம்.`, healthTitle: "ஒப்பந்த ఆరోగ్యం", reExplain: "மீண்டும் விளக்கவும்", askWhy: "ஏன் என்று கேளுங்கள்", emailClause: "மின்னஞ்சல்", severityTitle: " உட்பிரிவு தீவிரம்", severityHigh: "உயர்", severityMedium: "நடுத்தர", severityLow: "குறைந்த", nextStepsTitle: "அடுத்த படிகள்", analysisReport: "பகுப்பாய்வு அறிக்கை", copyReport: "நகலெடு", emailReport: "பகிர்", historyTitle: "பகுப்பாய்வு வரலாறு", noHistory: "இன்னும் வரலாறு இல்லை. தொடங்க ஒரு ஆவணத்தை பகுப்பாய்வு செய்யவும்.", clearHistory: "வரலாற்றை ತೆರವುಗೊಳಿಸಿ", clearHistoryConfirm: "நீங்கள் எல்லா வரலாற்றையும் ತೆರವುಗೊಳಿಸಲು ಖಚಿತವಾಗಿ ಬಯಸುತ್ತೀರಾ?" },
+            ml: { title: "ന്യായസാരഥി AI", subtitle: "നിങ്ങളുടെ AI നിയമ പ്രമാണ സഹായി.", pastePlaceholder: "നിങ്ങളുടെ സങ്കീർണ്ണമായ നിയമ പ്രമാണം ഇവിടെ ഒട്ടിക്കുക, അല്ലെങ്കിൽ താഴെ ഫയലുകൾ തിരഞ്ഞെടുക്കുക.", uploadFile: "പ്രമാണം അപ്‌ലോഡ് ചെയ്യുക", useCamera: "ക്യാമറ ഉപയോഗിക്കുക", demystifyBtn: "പ്രമാണം ലളിതമാക്കുക", initialTitle: "നിങ്ങളുടെ ലളിതമായ സംഗ്രഹം ഇവിടെ ദൃശ്യമാകും.", initialSubtitle: "നിങ്ങൾക്ക് തുടർചോദ്യങ്ങൾ ചോദിക്കാനും കഴിയും.", summaryTitle: "പ്രമാണ സംഗ്രഹം", clausesTitle: "പ്രധാന വ്യവസ്ഥകളുടെ വിശദീകരണങ്ങൾ", chatTitle: "ഒരു ചോദ്യം ചോദിക്കുക", chatPlaceholder: "നിർദ്ദിഷ്ട പദങ്ങൾ, തീയതികൾ, അല്ലെങ്കിൽ ബാധ്യതകളെക്കുറിച്ച് ചോദിക്കുക...", clear: "മായ്ക്കുക", errorPasteDoc: "ദയവായി ഒരു പ്രമാണം ഒട്ടിക്കുക അല്ലെങ്കിൽ കുറഞ്ഞത് ഒരു ഫയലെങ്കിലും തിരഞ്ഞെടുക്കുക.", errorFileSupport: "പിന്തുണയ്ക്കാത്ത ഫയൽ തരം. ദയവായി .txt, .pdf, .png, .jpg അല്ലെങ്കിൽ .jpeg ഫയൽ അപ്‌ലോഡ് ചെയ്യുക.", errorCameraSupport: "ക്യാമറ പിന്തുണ ഇതുവരെ നടപ്പിലാക്കിയിട്ടില്ല. ദയവായി ഒരു ഫയൽ തിരഞ്ഞെടുക്കുക.", errorAIGeneric: "ക്ഷമിക്കണം, എനിക്കത് പ്രോസസ്സ് ചെയ്യാൻ കഴിഞ്ഞില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക.", noSummary: "സംഗ്രഹം സൃഷ്ടിക്കാൻ കഴിഞ്ഞില്ല.", noClauses: "AI പ്രത്യേക വ്യവസ്ഥകളൊന്നും ഹൈലൈറ്റ് ചെയ്തിട്ടില്ല.", feature1: "തൽക്ഷണ സംഗ്രഹങ്ങൾ", feature2: "സങ്കീർണ്ണമായ വ്യവസ്ഥകളുടെ വിശദീകരണങ്ങൾ", feature3: "സംവേദനാത്മക ചോദ്യോത്തരം", security: "സുരക്ഷിതവും സ്വകാര്യവും: നിങ്ങളുടെ പ്രമാണങ്ങൾ സുരക്ഷിതമായി പ്രോസസ്സ് ചെയ്യുകയും ഞങ്ങളുടെ സെർവറുകളിൽ ഒരിക്കലും സംഭരിക്കാതിരിക്കുകയും ചെയ്യുന്നു.", errorPDFParse: "PDF ഫയലിൽ നിന്ന് ടെക്സ്റ്റ് വായിക്കാൻ കഴിഞ്ഞില്ല. ഇത് ഒരു ഇമേജ്-മാത്രം PDF അല്ലെങ്കിൽ കേടായതാകാം.", langInstruction: "Provide the entire response in Malayalam.", fileReady: (count) => `${count} ഫയലുകൾ വിശകലനത്തിനായി തയ്യാറാണ്. നിങ്ങൾക്ക് തുടരാം.`, healthTitle: "കരാർ ആരോഗ്യം", reExplain: "വീണ്ടും വിശദീകരിക്കുക", askWhy: "എന്തുകൊണ്ടെന്ന് ചോദിക്കുക", emailClause: "ഇമെയിൽ", severityTitle: "വ്യവസ്ഥയുടെ കാഠിന്യം", severityHigh: "ഉയർന്നത്", severityMedium: "ഇടത്തരം", severityLow: "കുറഞ്ഞത്", nextStepsTitle: "അടുത്ത നടപടികൾ", analysisReport: "വിശകലന റിപ്പോർട്ട്", copyReport: "പകർത്തുക", emailReport: "പങ്കിടുക", historyTitle: "വിശകലന ചരിത്രം", noHistory: "ഇതുവരെ ചരിത്രമില്ല. ആരംഭിക്കാൻ ഒരു പ്രമാണം വിശകലനം ചെയ്യുക.", clearHistory: "ചരിത്രം മായ്ക്കുക", clearHistoryConfirm: "നിങ്ങൾക്ക് എല്ലാ ചരിത്രവും മായ്ക്കാൻ താൽപ്പര്യമുണ്ടെന്ന് ഉറപ്പാണോ?" }
         };
 
         // --- Language & Theme ---
@@ -623,7 +618,7 @@
         fileInput.addEventListener('change', (event) => {
             const files = event.target.files;
             if (!files) return;
-            selectedFiles.push(...files);
+            selectedFiles.push(...Array.from(files));
             renderSelectedFiles();
             fileInput.value = ''; // Reset for same-file upload
         });
@@ -634,8 +629,7 @@
                 removeFile(index);
             }
         });
-
-        cameraBtn.addEventListener('click', () => showError('errorCameraSupport'));
+        
         sendBtn.addEventListener('click', handleChatSubmit);
         chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); handleChatSubmit(); } });
         
@@ -967,7 +961,10 @@
         });
 
         // --- Export & Share Logic ---
-        function getReportAsText() {
+        function getReportAsText(fullReport = true) {
+             if (!fullReport) {
+                return document.getElementById('summaryText').textContent;
+            }
             let report = `ANALYSIS REPORT - NyaySarthi AI\n============================\n\n`;
             
             const healthRatingText = document.getElementById('healthRating').textContent;
@@ -1001,37 +998,37 @@
             });
         }
         
-        function printReport() {
-            const reportContent = resultState.innerHTML;
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(`
-                <html>
-                    <head><title>Print Report</title>
-                    <script src="https://cdn.tailwindcss.com"><\/script>
-                    <style> body { padding: 2rem; } </style>
-                    </head>
-                    <body>${reportContent}</body>
-                </html>
-            `);
-            printWindow.document.close();
-            printWindow.print();
-        }
+        async function handleShare() {
+            const reportText = getReportAsText();
+            const shareData = {
+                title: 'NyaySarthi AI Analysis Report',
+                text: reportText,
+            };
+            const emailFallback = () => {
+                window.location.href = `mailto:?subject=${encodeURIComponent(shareData.title)}&body=${encodeURIComponent(shareData.text)}`;
+            };
 
-        function emailReport() {
-            const subject = `NyaySarthi AI Analysis Report`;
-            const body = getReportAsText();
-            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                } catch (err) {
+                    console.error("Share failed, falling back to email:", err);
+                    if (err.name !== 'AbortError') {
+                        emailFallback();
+                    }
+                }
+            } else {
+                 emailFallback();
+            }
         }
         
         function renderExportButtons() {
             exportButtonsContainer.innerHTML = `
                 <button id="copy-btn" title="${translations[currentLanguage].copyReport}" class="p-2 rounded-lg bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors"><svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>
-                <button id="print-btn" title="${translations[currentLanguage].printReport}" class="p-2 rounded-lg bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors"><svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm7-8a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></button>
-                <button id="email-share-btn" title="${translations[currentLanguage].emailReport}" class="p-2 rounded-lg bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors"><svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></button>
+                <button id="share-btn" title="${translations[currentLanguage].emailReport}" class="p-2 rounded-lg bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors"><svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.862 13.342 9 13.194 9 13s-.138-.342-.316-.342C8.438 12.658 8 12.28 8 11.737c0-.543.438-.921.684-.921.178 0 .316.148.316.342 0 .194-.138.342-.316.342a1 1 0 110-2c1.316 0 2.316 1.08 2.316 2.263 0 1.183-1 2.013-2.316 2.013C8.438 14.658 8 14.28 8 13.737c0-.543.438-.921.684-.921.178 0 .316.148.316.342 0 .194-.138.342-.316.342a1 1 0 110-2c1.316 0 2.316 1.08 2.316 2.263 0 1.183-1 2.013-2.316 2.013C8.438 15.974 8 15.596 8 15.053c0-.543.438-.921.684-.921.178 0 .316.148.316.342 0 .194-.138.342-.316.342a1 1 0 110-2c1.316 0 2.316 1.08 2.316 2.263 0 1.183-1 2.013-2.316 2.013zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/></path></svg></button>
             `;
             document.getElementById('copy-btn').addEventListener('click', copyReport);
-            document.getElementById('print-btn').addEventListener('click', printReport);
-            document.getElementById('email-share-btn').addEventListener('click', emailReport);
+            document.getElementById('share-btn').addEventListener('click', handleShare);
         }
 
         // --- Initialize ---
@@ -1039,6 +1036,7 @@
             setLanguage(currentLanguage);
             showState('initial');
             renderHistory();
+            
             // Handle splash screen fade out
             setTimeout(() => {
                 splashScreen.classList.add('fade-out');
@@ -1052,5 +1050,4 @@
     </script>
 </body>
 </html>
-
 
