@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0d3d56;
+  --color-secondary: #48a9a6;
+  --color-accent: #f2a104;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+/* Animations */
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  animation: gradient-move 15s ease infinite alternate;
+}
+
+/* Mesh gradient background */
+.mesh-gradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-size: 200% 200%;
+  background-image:
+    radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 1) 0px, transparent 50%),
+    radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, hsla(355, 98%, 76%, 1) 0px, transparent 50%),
+    radial-gradient(at 10% 29%, hsla(256, 96%, 68%, 1) 0px, transparent 50%),
+    radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%),
+    radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
+    radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 1) 0px, transparent 50%);
+  animation: gradient-move 15s ease infinite alternate;
+}
+
+.dark .mesh-gradient {
+  background-image:
+    radial-gradient(at 27% 37%, hsla(215, 60%, 25%, 1) 0px, transparent 50%),
+    radial-gradient(at 97% 21%, hsla(125, 60%, 20%, 1) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, hsla(355, 60%, 25%, 1) 0px, transparent 50%),
+    radial-gradient(at 10% 29%, hsla(256, 60%, 25%, 1) 0px, transparent 50%),
+    radial-gradient(at 97% 96%, hsla(38, 60%, 20%, 1) 0px, transparent 50%),
+    radial-gradient(at 33% 50%, hsla(222, 60%, 20%, 1) 0px, transparent 50%),
+    radial-gradient(at 79% 53%, hsla(343, 60%, 25%, 1) 0px, transparent 50%);
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
