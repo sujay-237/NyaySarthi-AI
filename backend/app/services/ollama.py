@@ -9,9 +9,31 @@ from app.services.gemini import _parse_analysis, ANALYSIS_PROMPT, CHAT_PROMPT, L
 settings = get_settings()
 
 
+async def _check_ollama_status(base_url: str) -> str | None:
+    """Returns None if OK, otherwise returns an error message."""
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            resp = await client.get(f"{base_url}/api/tags")
+            if resp.status_code != 200:
+                return f"Ollama returned status {resp.status_code}. Is it running?"
+            data = resp.json()
+            models = [m["name"] for m in data.get("models", [])]
+            if not models:
+                return "No Ollama models found. Run: ollama pull <model>"
+            return None
+    except httpx.ConnectError:
+        return "Cannot connect to Ollama. Is it running? (ollama serve)"
+    except Exception as e:
+        return f"Ollama check failed: {str(e)}"
+
+
 async def analyze_document(text: str, files: List[Dict], language: str = "en", model: Optional[str] = None) -> AnalysisResponse:
     m = model or settings.DEFAULT_OLLAMA_MODEL
     base_url = settings.OLLAMA_BASE_URL.rstrip("/")
+
+    err = await _check_ollama_status(base_url)
+    if err:
+        raise ValueError(err)
 
     lang_instruction = LANGUAGE_INSTRUCTIONS.get(language, LANGUAGE_INSTRUCTIONS["en"])
     prompt = ANALYSIS_PROMPT.format(lang_instruction=lang_instruction)
@@ -32,6 +54,8 @@ async def analyze_document(text: str, files: List[Dict], language: str = "en", m
 
     async with httpx.AsyncClient(timeout=120.0) as client:
         resp = await client.post(f"{base_url}/api/generate", json=payload)
+        if resp.status_code == 404:
+            raise ValueError(f"Ollama model '{m}' not found. Run: ollama pull {m}")
         resp.raise_for_status()
         data = resp.json()
 
@@ -42,6 +66,11 @@ async def analyze_document(text: str, files: List[Dict], language: str = "en", m
 async def chat_stream(message: str, context: str, language: str = "en", model: Optional[str] = None):
     m = model or settings.DEFAULT_OLLAMA_MODEL
     base_url = settings.OLLAMA_BASE_URL.rstrip("/")
+
+    err = await _check_ollama_status(base_url)
+    if err:
+        yield ChatChunk(chunk=f"Error: {err}", done=True)
+        return
 
     lang_instruction = LANGUAGE_INSTRUCTIONS.get(language, LANGUAGE_INSTRUCTIONS["en"])
     prompt = CHAT_PROMPT.format(lang_instruction=lang_instruction, context=context, message=message)
@@ -55,6 +84,9 @@ async def chat_stream(message: str, context: str, language: str = "en", model: O
 
     async with httpx.AsyncClient(timeout=120.0) as client:
         async with client.stream("POST", f"{base_url}/api/generate", json=payload) as resp:
+            if resp.status_code == 404:
+                yield ChatChunk(chunk=f"Error: Ollama model '{m}' not found. Run: ollama pull {m}", done=True)
+                return
             resp.raise_for_status()
             async for line in resp.aiter_lines():
                 if not line:
