@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     DEFAULT_PROVIDER: str = "gemini"
     DEFAULT_GEMINI_MODEL: str = "gemini-2.5-flash-preview-05-20"
     DEFAULT_GROQ_MODEL: str = "llama-3.3-70b-versatile"
-    DEFAULT_OLLAMA_MODEL: str = "llama3.2"
+    DEFAULT_OLLAMA_MODEL: str = "llama3"
     
     class Config:
         env_file = ".env"

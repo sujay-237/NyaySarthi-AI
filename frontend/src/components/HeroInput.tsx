@@ -156,6 +156,14 @@ export default function HeroInput({
           <div className="flex items-center justify-between px-4 pb-3 pt-1">
             <div className="flex items-center gap-2">
               <label className="cursor-pointer flex items-center gap-1.5 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  className="hidden"
+                  accept=".txt,.pdf,.png,.jpg,.jpeg"
+                  multiple
+                  onChange={handleFileSelect}
+                />
                 <Upload className="w-4 h-4" />
                 <span className="hidden sm:inline">Upload</span>
                 {files.length > 0 && (
@@ -164,14 +172,6 @@ export default function HeroInput({
                   </span>
                 )}
               </label>
-              <input
-                ref={fileInputRef}
-                type="file"
-                className="hidden"
-                accept=".txt,.pdf,.png,.jpg,.jpeg"
-                multiple
-                onChange={handleFileSelect}
-              />
 
               {files.length > 0 && (
                 <div className="flex items-center gap-1">
